@@ -232,6 +232,169 @@ app.get("/task11", (reg,res) => {
   res.send(result);
 })
 
+app.get("/task12", (reg,res) => {
+  let sql = "SELECT cname FROM customers WHERE cname BETWEEN 'A' AND 'H';";
+  db.query(sql, (err,result) => {
+    throw err;
+    console.log(err);
+  })
+  res.send(result);
+})
+
+app.get("/task13", (reg,res) => {
+  let sql = "SELECT sname FROM salers WHERE sname LIKE 'C%';";
+  db.query(sql, (err,result) => {
+    throw err;
+    console.log(err);
+  })
+  res.send(result);
+})
+
+app.get("/task14", (reg,res) => {
+  let sql = "SELECT sname FROM salers WHERE sname LIKE 'D%' AND sname LIKE '%n';";
+  db.query(sql, (err,result) => {
+    throw err;
+    console.log(err);
+  })
+  res.send(result);
+})
+
+app.get("/task15", (reg,res) => {
+  let sql = "SELECT sname FROM salers WHERE sname LIKE '%n' AND sname NOT LIKE 'D%';";
+  db.query(sql, (err,result) => {
+    throw err;
+    console.log(err);
+  })
+  res.send(result);
+})
+
+app.get("/task16", (reg,res) => {
+  let sql = "SELECT * FROM salers WHERE sname IS NULL;";
+  db.query(sql, (err,result) => {
+    throw err;
+    console.log(err);
+  })
+  res.send(result);
+})
+
+app.get("/task17", (reg,res) => {
+  let sql = "SELECT ((SELECT SUM(amt) FROM orders) / (SELECT COUNT(amt) FROM orders)) AS result;";
+  db.query(sql,(err,result) => {
+    throw err;
+    console.log(err);
+  })
+  res.send(result);
+})
+
+app.get("/task18", (reg,res) => {
+  let sql = "SELECT SUM(amt) FROM orders WHERE snum = 1007;";
+  db.query(sql, (err, result) => {
+    throw err;
+    console.log(err);
+  })
+  res.send(result);
+})
+
+app.get("/task19", (reg,res) => {
+  let sql = "SELECT city, MAX(rating) FROM customers GROUP BY city;";
+  db.query(sql, (err,result) => {
+    throw err;
+    console.log(err);
+  })
+  res.send(result);
+})
+
+app.get("/task20", (reg,res) => {
+  let sql = "SELECT city, MIN(comm) FROM  salers GROUP BY city;";
+  db.query(sql, (err,result) => {
+    throw err;
+    console.log(err);
+  })
+  res.send(result);
+})
+
+app.get("/task21", (reg,res) => {
+  let sql = "SELECT * FROM orders WHERE odate = '1990-03-10' ORDER BY amt ASC;";
+  db.query(sql, (err,result) => {
+    throw err;
+    console.log(err);
+  })
+  res.send(result);
+})
+
+app.get("/task22", (reg,res) => {
+  let sql = "SELECT * FROM orders ORDER BY odate DESC LIMIT 2;";
+  db.query(sql, (err, result) => {
+    throw err;
+    console.log(err);
+  })
+  res.send(result);
+})
+
+app.get("/task23", (reg,res) => {
+  let sql = "SELECT c.cname, c.rating, c.city, s.sname FROM customers c, salers s WHERE c.snum = s.snum AND c.rating > 200;";
+  db.query(sql, (err,result) => {
+    throw err;
+    console.log(err);
+  })
+  res.send(result);
+})
+
+app.get("/task24", (reg,res) => {
+  let sql = "SELECT 'Продавец: ', sname, 'Сумма продажи: ', amt, 'Размер комиссионных: ', (amt*comm) AS res FROM salers, orders WHERE salers.snum = orders.snum;";
+  db.query(sql, (err,result) => {
+    throw err;
+    console.log(err);
+  })
+  res.send(result);
+})
+
+app.get("/task25", (reg,res) => {
+  let sql = "SELECT sname, CHAR_LENGTH(sname) FROM salers WHERE CHAR_LENGTH(sname) >= 6;";
+  db.query(sql, (err,result) => {
+    throw err;
+    console.log(err);
+  })
+  res.send(result);
+})
+
+app.get("/task26", (reg,res) => {
+  let sql = "SELECT onum, amt, REPLACE(odate, '-', '/') AS odate, cnum, snum FROM orders;";
+  db.query(sql, (err, result) => {
+    throw err;
+    console.log(err);
+  })
+  res.send(result);
+})
+
+app.get("/task27", (reg,res) => {
+  let sql= "SELECT amt, SUBSTRING_INDEX(amt, '.', 1) AS amt FROM orders;";
+  db.query(sql, (err,result) => {
+    throw err;
+    console.log(err);
+  })
+  res.send(result);
+})
+
+app.get("/task28", (reg,res) => {
+  let sql = "SELECT SUBSTRING_INDEX(REPLACE(odate, '-', '/'), '/', -2) AS odate FROM orders;";
+  db.query(sql, (err,result) => {
+    throw err;
+    console.log(err);
+  })
+  res.send(result);
+})
+
+app.get("/task29", (reg,res) => {
+  let sql = "SELECT * FROM salers WHERE CHAR_LENGTH(sname) <> LENGTH(sname);";
+  db.query(sql, (err,result) => {
+    throw err;
+    console.log(err);
+  })
+  res.send(result);
+})
+
+ 
 app.get("/", (reg, res) => {
     // console.log(reg);
     res.send("server running");
